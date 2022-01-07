@@ -3,7 +3,7 @@ body{
     display: flex;
     flex-direction: column;
 }
-form{
+.goods-list {
     width: 400px;
     height: 500px;
     background-color: rgb(255, 255, 255);
