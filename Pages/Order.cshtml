@@ -1,0 +1,34 @@
+﻿@page
+@model OrderModel
+@{
+  ViewData["Title"] = "Товар";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/order.css" type="text/css">
+}
+
+<form>
+  <h1>Магазин б/у ps one от 3000руб.</h1>
+  <p>Имя</p>
+  <input type="text">
+  <p>Адрес доставки</p>
+  <input type="text">
+  <p>Способ доставки</p>
+  <input type="radio" name="select">
+  <span>Самовызов</span>
+  <input type="radio" name="select">
+  <span>Курьерская доставка (100руб.)</span>
+  <p>Какой диск вы хотите?</p>
+  <select>
+    <option>Driver</option>
+    <option>Doom</option>
+    <option>Quake</option>
+    <option>GTA 1</option>
+    <option>GTA 2</option>
+  </select>
+  <input type="checkbox" id="agree">
+  <label for="agree">Я согласен на 2 геймпад в подарок</label>
+  <span>Я согласен на 2 геймпад в подарок</span>
+  <input type="submit" value="Оформить доставку">
+</form>
