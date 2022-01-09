@@ -1,7 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using Orleans.Hosting;
 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Host.UseOrleans(builder =>
+{
+  builder.UseLocalhostClustering();
+  builder.AddMemoryGrainStorageAsDefault();
+});
 
 var app = builder.Build();
 
