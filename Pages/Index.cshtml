@@ -11,22 +11,23 @@
 <div class="goods-list">
     <h1>Список товаров</h1>
     <ul class="demo">
-        <li>
-            <div class="goods-info">
-                <div>
-                    <a href="order">Ноутбук 16 гб оперотивной памяти</a>
-                </div>
-                <div>
-                    <span>30 000 р.</span>
-                </div>
-            </div>
-            <div class="goods-photo">
-                <img src="пв" alt="Ноутбук" width="500" height="333">
-            </div>
-        </li>
-        <li><a href="order">Чехлы для телефоноф(от 800руб.)</a></li>
-        <li><a href="order">Телефоны(от 10тыс.,руб.)64 гб оперотивной памяти</a></li>
-        <li><a href="order">Планшеты(от 20тыс.,руб.) 64 гб оперотивной памяти</a></li>
-        <li><a href="order">Самокаты(от 10тыс.,руб.) только синего цвета(другого цвета нет-все продали)</a></li>
+        @{
+            foreach (var goods in this.Model.Goods)
+            {
+                <li>
+                    <div class="goods-info">
+                        <div>
+                            <a href="order">@goods.Name</a>
+                        </div>
+                        <div>
+                            <span>@goods.Price р.</span>
+                        </div>
+                    </div>
+                    <div class="goods-photo">
+                        <img src="@goods.Photo" alt="@goods.Name" width="500" height="333">
+                    </div>
+                </li>
+            }
+        }
     </ul>
 </div>
