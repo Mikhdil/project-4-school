@@ -20,26 +20,28 @@ namespace TopSite.Pages
 
     public async Task OnGetAsync()
     {
-      var list = this.grainFactory.GetGrain<IGoodsList>(Guid.Empty);
-      var allGoodsIds = await list.ListAll();
-      if (allGoodsIds.Length == 0)
+      var list = this.grainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
+      var allGoodsRows = await list.ListAll();
+      if (allGoodsRows.Length == 0)
       {
         await this.FillSampleData();
-        allGoodsIds = await list.ListAll();
+        allGoodsRows = await list.ListAll();
       }
 
-      var goodsStatesTaskList = new List<Task<GoodsState>>();
-      foreach (var goodsId in allGoodsIds)
+      var goodsStatesTaskList = new Dictionary<long, Task<GoodsState>>();
+      foreach (var goodsRow in allGoodsRows)
       {
-        var goodsGrain = this.grainFactory.GetGrain<IGoods>(goodsId);
-        goodsStatesTaskList.Add(goodsGrain.Info());
+        var goodsGrain = this.grainFactory.GetGrain<IGoods>(goodsRow.Id);
+        goodsStatesTaskList.Add(goodsRow.SurrogateId, goodsGrain.Info());
       }
 
-      var allGoods = await Task.WhenAll(goodsStatesTaskList);
-      foreach (var goods in allGoods)
+      Task.WaitAll(goodsStatesTaskList.Values.ToArray());
+      foreach (var goodsTask in goodsStatesTaskList)
       {
+        var goods = goodsTask.Value.Result;
         this.Goods.Add(new GoodsViewModel()
         {
+          Id = goodsTask.Key,
           Name = goods.Name,
           Phone = goods.Phone,
           Photo = goods.Photo,
@@ -50,26 +52,27 @@ namespace TopSite.Pages
 
     private async Task FillSampleData()
     {
-      var i = 1;
-      var goods = this.grainFactory.GetGrain<IGoods>(i);
+      var goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
       await goods.Create(new CreateGoodsCommand("Ноутбук 16 гб оперотивной памяти", "81231234567", "img.jpg", 30000));
 
-      goods = this.grainFactory.GetGrain<IGoods>(++i);
+      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
       await goods.Create(new CreateGoodsCommand("Чехлы для телефоноф", "81231234567", "img.jpg", 800));
 
-      goods = this.grainFactory.GetGrain<IGoods>(++i);
+      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
       await goods.Create(new CreateGoodsCommand("Смартфон", "81231234567", "img.jpg", 10000));
 
-      goods = this.grainFactory.GetGrain<IGoods>(++i);
+      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
       await goods.Create(new CreateGoodsCommand("Планшет", "81231234567", "img.jpg", 20000));
 
-      goods = this.grainFactory.GetGrain<IGoods>(++i);
+      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
       await goods.Create(new CreateGoodsCommand("Самокат", "81231234567", "img.jpg", 10000));
     }
   }
 
   public class GoodsViewModel
   {
+    public long Id { get; set; }
+
     public string Name { get; set; }
 
     public string Photo { get; set; }

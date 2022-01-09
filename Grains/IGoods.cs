@@ -3,7 +3,7 @@ using Orleans.Runtime;
 
 namespace TopSite.Grains
 {
-  public interface IGoods : IGrainWithIntegerKey
+  public interface IGoods : IGrainWithGuidKey
   {
     Task Create(CreateGoodsCommand createCommand);
 
@@ -27,8 +27,8 @@ namespace TopSite.Grains
         createCommand.Photo,
         createCommand.Price);
 
-      var listGrain = this.GrainFactory.GetGrain<IGoodsList>(Guid.Empty);
-      var goodsId = this.GetPrimaryKeyLong();
+      var listGrain = this.GrainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
+      var goodsId = this.GetPrimaryKey();
       await listGrain.Add(goodsId);
 
       await this.state.WriteStateAsync();

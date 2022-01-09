@@ -4,14 +4,14 @@
   ViewData["Title"] = "Добавление товара";
 }
 <link rel="stylesheet" href="~/css/addnew.css" type="text/css">
-<form>
+<form method="post">
   <h1>Добавление товара.</h1>
   <p>Товар и описание</p>
-  <input type="text">
+  <input type="text" name="Name" id="Name">
   <p>Цена товара</p>
-  <input type="text">
+  <input type="number" name="Price" id="Price">
   <p>Номер телефона</p>
-  <input type="text">
+  <input type="text" name="Phone" id="Phone">
   <input type="submit" value="Опубликовать товар">
 </form>
 <div>
