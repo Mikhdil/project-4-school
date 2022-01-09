@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Товары";
+  ViewData["Title"] = "Товары";
 }
 
 @section Styles {
@@ -9,25 +9,25 @@
 }
 
 <div class="goods-list">
-    <h1>Список товаров</h1>
-    <ul class="demo">
-        @{
-            foreach (var goods in this.Model.Goods)
-            {
-                <li>
-                    <div class="goods-info">
-                        <div>
-                            <a href="order">@goods.Name</a>
-                        </div>
-                        <div>
-                            <span>@goods.Price р.</span>
-                        </div>
-                    </div>
-                    <div class="goods-photo">
-                        <img src="@goods.Photo" alt="@goods.Name" width="500" height="333">
-                    </div>
-                </li>
-            }
-        }
-    </ul>
+  <h1>Список товаров</h1>
+  <ul class="demo">
+    @{
+      foreach (var goods in this.Model.Goods)
+      {
+        <li>
+          <div class="goods-info">
+            <div>
+              <a href="order">@goods.Name</a>
+            </div>
+            <div>
+              <span>@goods.Price р.</span>
+            </div>
+          </div>
+          <div class="goods-photo">
+            <img src="@goods.Photo" alt="@goods.Name" width="500" height="333">
+          </div>
+        </li>
+      }
+    }
+  </ul>
 </div>
