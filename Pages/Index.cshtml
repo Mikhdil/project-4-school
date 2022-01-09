@@ -1,17 +1,29 @@
 ﻿@page
 @model IndexModel
 @{
-  ViewData["Title"] = "Товары";
+    ViewData["Title"] = "Товары";
 }
 
 @section Styles {
-  <link rel="stylesheet" href="~/css/list.css" type="text/css">
+<link rel="stylesheet" href="~/css/list.css" type="text/css">
 }
 
 <div class="goods-list">
     <h1>Список товаров</h1>
     <ul class="demo">
-        <li><a href="order">Ноутбук(от30тыс.,руб.) 16 гб оперотивной памяти</a></li>
+        <li>
+            <div class="goods-info">
+                <div>
+                    <a href="order">Ноутбук 16 гб оперотивной памяти</a>
+                </div>
+                <div>
+                    <span>30 000 р.</span>
+                </div>
+            </div>
+            <div class="goods-photo">
+                <img src="пв" alt="Ноутбук" width="500" height="333">
+            </div>
+        </li>
         <li><a href="order">Чехлы для телефоноф(от 800руб.)</a></li>
         <li><a href="order">Телефоны(от 10тыс.,руб.)64 гб оперотивной памяти</a></li>
         <li><a href="order">Планшеты(от 20тыс.,руб.) 64 гб оперотивной памяти</a></li>
