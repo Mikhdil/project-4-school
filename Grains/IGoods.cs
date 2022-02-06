@@ -1,4 +1,5 @@
-﻿using Orleans;
+﻿using Newtonsoft.Json;
+using Orleans;
 using Orleans.Runtime;
 
 namespace TopSite.Grains
@@ -60,12 +61,16 @@ namespace TopSite.Grains
       this.Price = price;
     }
 
+    [JsonProperty]
     public string Name { get; private set; }
 
+    [JsonProperty]
     public string Phone { get; private set; }
 
+    [JsonProperty]
     public string Photo { get; private set; }
 
+    [JsonProperty]
     public decimal Price { get; private set; }
 
     public GoodsState() { }

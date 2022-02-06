@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Orleans;
 using TopSite.Grains;
 
@@ -22,12 +23,6 @@ namespace TopSite.Pages
     {
       var list = this.grainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
       var allGoodsRows = await list.ListAll();
-      if (allGoodsRows.Length == 0)
-      {
-        await this.FillSampleData();
-        allGoodsRows = await list.ListAll();
-      }
-
       var goodsStatesTaskList = new Dictionary<long, Task<GoodsState>>();
       foreach (var goodsRow in allGoodsRows)
       {
@@ -50,22 +45,30 @@ namespace TopSite.Pages
       }
     }
 
-    private async Task FillSampleData()
+    public async Task<IActionResult> OnGetInitDefaultAsync()
     {
-      var goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
-      await goods.Create(new CreateGoodsCommand("Ноутбук 16 гб оперотивной памяти", "81231234567", "img.jpg", 30000));
+      var list = this.grainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
+      var allGoodsRows = await list.ListAll();
 
-      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
-      await goods.Create(new CreateGoodsCommand("Чехлы для телефоноф", "81231234567", "img.jpg", 800));
+      if (allGoodsRows.Length <= 0)
+      {
+        var goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+        await goods.Create(new CreateGoodsCommand("Ноутбук 16 гб оперотивной памяти", "81231234567", "img.jpg", 30000));
 
-      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
-      await goods.Create(new CreateGoodsCommand("Смартфон", "81231234567", "img.jpg", 10000));
+        goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+        await goods.Create(new CreateGoodsCommand("Чехлы для телефоноф", "81231234567", "img.jpg", 800));
 
-      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
-      await goods.Create(new CreateGoodsCommand("Планшет", "81231234567", "img.jpg", 20000));
+        goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+        await goods.Create(new CreateGoodsCommand("Смартфон", "81231234567", "img.jpg", 10000));
 
-      goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
-      await goods.Create(new CreateGoodsCommand("Самокат", "81231234567", "img.jpg", 10000));
+        goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+        await goods.Create(new CreateGoodsCommand("Планшет", "81231234567", "img.jpg", 20000));
+
+        goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+        await goods.Create(new CreateGoodsCommand("Самокат", "81231234567", "img.jpg", 10000));
+      }
+
+      return this.RedirectToPage("Index");
     }
   }
 

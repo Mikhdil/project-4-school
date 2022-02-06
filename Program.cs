@@ -1,4 +1,5 @@
 using Orleans.Hosting;
+using TopSite.Grains;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -7,7 +8,10 @@ builder.Services.AddRazorPages();
 builder.Host.UseOrleans(builder =>
 {
   builder.UseLocalhostClustering();
-  builder.AddMemoryGrainStorageAsDefault();
+  builder.AddFileGrainStorageAsDefault(options =>
+  {
+    options.RootDirectory = Path.Combine(Environment.CurrentDirectory, "bin", "storage");
+  });
 });
 
 var app = builder.Build();
