@@ -1,0 +1,15 @@
+﻿form {
+  width: 400px;
+  height: 500px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.order-link {
+  margin-left: 10px;
+}

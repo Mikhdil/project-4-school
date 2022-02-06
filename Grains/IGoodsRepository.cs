@@ -8,6 +8,8 @@ namespace TopSite.Grains
   {
     Task Add(Guid goodsId);
 
+    Task Delete(Guid goodsId);
+
     Task<ImmutableArray<GoodsRow>> ListAll();
     Task<IGoods> GetBySurrogateId(long surrogateId);
   }
@@ -45,6 +47,16 @@ namespace TopSite.Grains
         return Task.FromResult<IGoods>(null);
 
       return Task.FromResult(this.GrainFactory.GetGrain<IGoods>(goodsRow.Id));
+    }
+
+    public Task Delete(Guid goodsId)
+    {
+      var goodsRow = this.state.State.Goods.SingleOrDefault(r => r.Id == goodsId);
+      if (goodsRow == null)
+        return Task.CompletedTask;
+
+      this.state.State.Goods.Remove(goodsRow);
+      return this.state.WriteStateAsync();
     }
   }
 

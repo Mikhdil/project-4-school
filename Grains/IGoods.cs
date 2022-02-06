@@ -8,6 +8,7 @@ namespace TopSite.Grains
     Task Create(CreateGoodsCommand createCommand);
 
     Task<GoodsState> Info();
+    Task Delete();
   }
 
   public class GoodsGrain : Grain, IGoods
@@ -32,6 +33,15 @@ namespace TopSite.Grains
       await listGrain.Add(goodsId);
 
       await this.state.WriteStateAsync();
+    }
+
+    public async Task Delete()
+    {
+      var listGrain = this.GrainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
+      var goodsId = this.GetPrimaryKey();
+      await listGrain.Delete(goodsId);
+
+      await this.state.ClearStateAsync();
     }
 
     public Task<GoodsState> Info()

@@ -1,0 +1,36 @@
+﻿@page
+@model TopSite.Pages.DeleteModel
+@{
+  ViewData["Title"] = "Удаление товара";
+}
+<link rel="stylesheet" href="~/css/delete.css" type="text/css">
+<form method="post">
+  <h1>Удаление товара</h1>
+  <input hidden id="goodsId" type="hidden" value="@this.Model.DeleteInputModel.GoodsId" />
+
+  <div class="form-field">
+    <b>Товар и описание</b><br />
+    <span type="text" name="Name" id="Name">@this.Model.DeleteInputModel.GoodsName</span>
+  </div>
+
+  <div class="form-field">
+    <b>Цена товара</b><br />
+    <span type="number" name="Price" id="Price">@this.Model.DeleteInputModel.Price</span>
+  </div>
+
+  <div class="form-field">
+    <b>Номер телефона для связи</b><br />
+    <span type="text" name="Phone" id="Phone">@this.Model.DeleteInputModel.Phone</span>
+  </div>
+
+  <div>
+    <input class="btn danger" type="submit" value="Удалить">
+    <a class="btn" href="/">Не удалять</a>
+  </div>
+</form>
+<div>
+  <a href="index">Список товаров</a>
+</div>
+<div class="order-link">
+  <a href="order">Купить товар</a>
+</div>
