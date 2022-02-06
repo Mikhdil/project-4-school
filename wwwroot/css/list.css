@@ -13,10 +13,14 @@ ul.demo {
   margin: 10px;
   padding: 10px;
 }
-.goods-photo{
-    width:100px;
-    height:100px;
+.goods-photo {
+  width: 100px;
+  height: 100px;
+  border-style: solid;
+  border-width: 1px;
 }
 .goods-info{
     flex-grow:1;
+}
+.delete-goods{
 }
