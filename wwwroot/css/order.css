@@ -1,10 +1,28 @@
 ﻿form {
-    width: 400px;
-    height: 500px;
-    background-color: rgb(255, 255, 255);
-    margin-top: 50px;
-    border-radius: 10px;
+  width: 400px;
+  height: 500px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  border-radius: 10px;
 }
-.add-link{
-    margin-left: 10px;
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.add-link {
+  margin-left: 10px;
+}
+
+.form-errors {
+  box-sizing: border-box;
+  position: relative;
+  padding: 1rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
 }

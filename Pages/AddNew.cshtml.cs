@@ -8,12 +8,15 @@ namespace TopSite.Pages
 {
   public class AddNewModel : PageModel
   {
+    private IWebHostEnvironment _environment;
+
     private readonly IGrainFactory grainFactory;
 
-    public AddNewModel(IGrainFactory grainFactory)
+    public AddNewModel(IGrainFactory grainFactory, IWebHostEnvironment environment)
     {
       this.grainFactory = grainFactory;
       this.CreatedGoods = new CreateGoodsInputModel();
+      this._environment = environment;
     }
 
     [BindProperty]
@@ -30,12 +33,26 @@ namespace TopSite.Pages
         return this.Page();
       }
 
-      var goods = this.grainFactory.GetGrain<IGoods>(Guid.NewGuid());
+      var picturePath = Path.Combine(_environment.WebRootPath, "images");
+      if (!Directory.Exists(picturePath))
+        Directory.CreateDirectory(picturePath);
+
+      var goodId = Guid.NewGuid();
+
+      var photoName = $"{goodId}-{this.CreatedGoods.Picture.FileName}";
+      var file = Path.Combine(picturePath, photoName);
+      using (var fileStream = new FileStream(file, FileMode.Create))
+      {
+        await this.CreatedGoods.Picture.CopyToAsync(fileStream);
+      }
+
+      var goods = this.grainFactory.GetGrain<IGoods>(goodId);
       await goods.Create(new CreateGoodsCommand(
         this.CreatedGoods.Name,
         this.CreatedGoods.Phone,
-        string.Empty,
+        Path.Combine("images", photoName),
         this.CreatedGoods.Price));
+
       return this.RedirectToPage("Index");
     }
   }
@@ -52,5 +69,7 @@ namespace TopSite.Pages
     [Required]
     [Phone]
     public string Phone { get; set; }
+
+    public IFormFile Picture { get; set; }
   }
 }

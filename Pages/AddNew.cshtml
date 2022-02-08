@@ -4,22 +4,33 @@
   ViewData["Title"] = "Добавление товара";
 }
 <link rel="stylesheet" href="~/css/addnew.css" type="text/css">
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   <h1>Добавление товара.</h1>
-  <p>Товар и описание</p>
-  <input type="text" name="Name" id="Name">
-  <p>Цена товара</p>
-  <input type="number" name="Price" id="Price">
-  <p>Номер телефона</p>
-  <input type="text" name="Phone" id="Phone">
+
+  <div class="form-field">
+    <b>Товар и описание</b><br />
+    <input type="text" name="Name" id="Name">
+  </div>
+
+  <div class="form-field">
+    <b>Изображение товара</b><br />
+    <input type="file" name="Picture" id="Picture" accept=".png, .jpg, .jpeg, .gif"><br>
+  </div>
+
+  <div class="form-field">
+    <b>Цена товара</b><br />
+    <input type="number" name="Price" id="Price">
+  </div>
+
+  <div class="form-field">
+    <b>Номер телефона</b><br />
+    <input type="text" name="Phone" id="Phone">
+  </div>
+
   <div>
     <input class="btn primary" type="submit" value="Опубликовать товар">
-    <input type="file" id="myfile" name="myfile"><br><br>
   </div>
 </form>
 <div>
   <a href="index">Список товаров</a>
-</div>
-<div class="order-link">
-  <a href="order">Купить товар</a>
 </div>

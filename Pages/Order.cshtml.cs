@@ -47,7 +47,12 @@ namespace TopSite.Pages
         return this.Page();
       }
 
-      await Task.CompletedTask; // TODO: Забрать товар.
+      var goodsRepository = this.grainFactory.GetGrain<IGoodsRepository>(Guid.Empty);
+      var goods = await goodsRepository.GetBySurrogateId(this.Order.GoodsId);
+      if (goods == null)
+        return this.RedirectToPage("Index");
+
+      await goods.Delete();
 
       return this.RedirectToPage("Index");
     }

@@ -11,27 +11,41 @@
 <form method="post">
   <h1>Магазин техники</h1>
   <input name="GoodsId" value="@this.Model.Order.GoodsId" hidden />
+  <input name="GoodsName" value="@this.Model.Order.GoodsName" hidden />
+
+  <div class="form-field">
+    <b>Товар и описание</b><br />
+    <span type="text" name="Name" id="Name">@this.Model.Order.GoodsName</span>
+  </div>
 
   @if (!string.IsNullOrWhiteSpace(this.Model.Error))
   {
-    <div>@this.Model.Error</div>
+    <div class="form-errors">@this.Model.Error</div>
   }
 
-  <p>Имя</p>
-  <input type="text" name="PersonFullName" id="PersonFullName" value="@this.Model.Order.PersonFullName" required>
-  <p>Адрес доставки</p>
-  <input type="text" name="Address" id="Address" value="@this.Model.Order.Address" required>
-  <p>Способ доставки</p>
-  <input type="radio" name="DeliveryType" value="Самовывоз">
-  <span>Самовызов</span>
-  <input type="radio" name="DeliveryType" value="Курьерская доставка (100руб.)">
-  <span>Курьерская доставка (100руб.)</span>
-  <p>Какую технику вы хотите?</p>
-  <input type="text" value="@this.Model.Order.GoodsName" name="GoodsName" readonly>
-  <div>
+  <div class="form-field">
+    <b>Имя получателя</b><br />
+    <input type="text" name="PersonFullName" id="PersonFullName" value="@this.Model.Order.PersonFullName" required>
+  </div>
+
+  <div class="form-field">
+    <b>Адрес доставки</b><br />
+    <input type="text" name="Address" id="Address" value="@this.Model.Order.Address" required>
+  </div>
+
+  <div class="form-field">
+    <b>Способ доставки</b><br />
+    <input type="radio" name="DeliveryType" value="Самовывоз">
+    <span>Самовызов</span>
+    <input type="radio" name="DeliveryType" value="Курьерская доставка (100руб.)">
+    <span>Курьерская доставка (100руб.)</span>
+  </div>
+
+  <div class="form-field">
     <input type="checkbox" name="PolicyAgree" required>
     <span>Я согласен на обработку персональных данных</span>
   </div>
+
   <div>
     <input class="btn primary" type="submit" value="Оформить доставку">
   </div>
